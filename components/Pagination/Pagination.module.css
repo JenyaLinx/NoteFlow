@@ -1,47 +1,44 @@
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 4px;
-  margin: 16px 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 0;
 }
 
-.pagination li {
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
+.button {
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid rgba(157, 78, 221, 0.35);
+  border-radius: var(--radius-sm);
+  color: var(--foreground);
+  background: rgba(12, 14, 34, 0.78);
   cursor: pointer;
-  min-width: 36px;
-  height: 36px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
 }
 
-.pagination li a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-  color: #0d6efd;
-  font-size: 14px;
-}
-
-.pagination li:hover {
-  background-color: #e9ecef;
-}
-
-.pagination li.active:hover {
-  background-color: #0d6efd;
+.button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(76, 201, 240, 0.65);
+  box-shadow: 0 0 18px rgba(76, 201, 240, 0.28);
 }
 
 .active {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  color: white;
+  border-color: rgba(76, 201, 240, 0.8);
+  background: linear-gradient(135deg, rgba(157, 78, 221, 0.55), rgba(76, 201, 240, 0.28));
+  box-shadow:
+    0 0 18px rgba(76, 201, 240, 0.35),
+    0 0 26px rgba(157, 78, 221, 0.22);
+  cursor: default;
 }
 
-.active a {
-  color: #fff !important;
-  font-weight: 500;
+.active:hover {
+  transform: none;
 }

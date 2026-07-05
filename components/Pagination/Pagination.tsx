@@ -1,4 +1,6 @@
-"use client";
+'use client';
+
+import css from './Pagination.module.css';
 
 interface PaginationProps {
   page: number;
@@ -11,16 +13,21 @@ export default function Pagination({
   totalPages,
   onChange,
 }: PaginationProps) {
+  if (totalPages <= 1) return null;
+
   return (
-    <div>
+    <div className={css.pagination}>
       {Array.from({ length: totalPages }, (_, i) => {
         const currentPage = i + 1;
+        const isActive = currentPage === page;
 
         return (
           <button
             key={currentPage}
+            type="button"
+            className={`${css.button} ${isActive ? css.active : ''}`}
             onClick={() => onChange(currentPage)}
-            disabled={currentPage === page}
+            disabled={isActive}
           >
             {currentPage}
           </button>

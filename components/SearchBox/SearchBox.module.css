@@ -1,8 +1,29 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--neon-blue);
+  font-size: 1.1rem;
+  pointer-events: none;
+  text-shadow: 0 0 12px rgba(76, 201, 240, 0.8);
+}
+
 .input {
-  flex: 1;
-  max-width: 240px;
-  padding: 6px 12px;
-  font-size: 16px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 14px 11px 40px;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    max-width: 100%;
+  }
 }

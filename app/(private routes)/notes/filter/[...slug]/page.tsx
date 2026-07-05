@@ -1,5 +1,5 @@
-import NotesClient from "./Notes.client";
-import { Metadata } from "next";
+import NotesClient from './Notes.client';
+import { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
@@ -10,15 +10,15 @@ export async function generateMetadata({
   const tag = slug[0];
 
   return {
-    title: `Notes - ${tag}`,
-    description: `Viewing ${tag} notes`,
+    title: `Note Flow | ${tag}`,
+    description: `Viewing ${tag} notes in Note Flow`,
     openGraph: {
-      title: `Notes - ${tag}`,
-      description: `Viewing ${tag} notes`,
+      title: `Note Flow | ${tag}`,
+      description: `Viewing ${tag} notes in Note Flow`,
       url: `/notes/filter/${tag}`,
       images: [
         {
-          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
         },
       ],
     },
