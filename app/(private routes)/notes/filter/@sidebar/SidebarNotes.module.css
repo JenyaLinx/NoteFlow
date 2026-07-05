@@ -1,23 +1,96 @@
+.sidebarNav {
+  width: 100%;
+}
+
+.sidebarTitle {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .menuList {
-  list-style-type: none;
+  list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .menuItem {
-  margin-bottom: 16px;
+  margin: 0;
 }
 
 .menuLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--foreground);
   text-decoration: none;
-  color: white;
-  font-size: 16px;
-  display: block;
-  padding: 8px 16px;
-  transition: background-color 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .menuLink:hover {
-  background-color: #444;
-  color: #ddd;
+  color: white;
+  border-color: rgba(157, 78, 221, 0.45);
+  background: rgba(157, 78, 221, 0.12);
+  box-shadow: 0 0 18px rgba(157, 78, 221, 0.25);
+  transform: translateX(4px);
+}
+
+.active {
+  color: white;
+  border-color: rgba(76, 201, 240, 0.7);
+  background:
+    linear-gradient(135deg, rgba(157, 78, 221, 0.24), rgba(76, 201, 240, 0.12));
+  box-shadow:
+    0 0 18px rgba(76, 201, 240, 0.35),
+    0 0 28px rgba(157, 78, 221, 0.22);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-purple);
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.85);
+}
+
+.active .dot {
+  background: var(--neon-blue);
+  box-shadow: 0 0 12px rgba(76, 201, 240, 0.95);
+}
+
+@media (max-width: 768px) {
+  .menuList {
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .menuLink {
+    white-space: nowrap;
+    min-height: 40px;
+    padding: 9px 12px;
+    font-size: 0.9rem;
+  }
+
+  .menuLink:hover {
+    transform: translateY(-2px);
+  }
 }

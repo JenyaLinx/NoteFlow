@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+import css from './LayoutNotes.module.css';
 
 export default function NotesLayout({
   children,
@@ -8,9 +9,9 @@ export default function NotesLayout({
   sidebar: ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
-      <aside>{sidebar}</aside>
-      <main>{children}</main>
+    <div className={css.container}>
+      <aside className={css.sidebar}>{sidebar}</aside>
+      <main className={css.notesWrapper}>{children}</main>
     </div>
   );
 }
