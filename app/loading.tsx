@@ -1,3 +1,10 @@
 export default function Loading() {
-  return <p>Loading, please wait...</p>;
+  return (
+    <div className="neonLoaderScreen">
+      <div className="neonLoaderBox">
+        <div className="neonSpinner" />
+        <p className="neonLoaderText">Loading</p>
+      </div>
+    </div>
+  );
 }

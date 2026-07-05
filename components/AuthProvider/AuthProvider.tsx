@@ -4,8 +4,22 @@ import { useEffect, useState } from 'react';
 import { checkSession, getMe } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 
+function NeonLoader() {
+  return (
+    <div className="neonLoaderScreen">
+      <div className="neonLoaderBox">
+        <div className="neonSpinner" />
+        <p className="neonLoaderText">Loading NoteHub</p>
+      </div>
+    </div>
+  );
+}
 
-export default function AuthProvider({ children }: { children: React.ReactNode }) {
+export default function AuthProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const setUser = useAuthStore((s) => s.setUser);
   const clear = useAuthStore((s) => s.clearIsAuthenticated);
 
@@ -32,7 +46,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     initAuth();
   }, [setUser, clear]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <NeonLoader />;
 
   return <>{children}</>;
 }
