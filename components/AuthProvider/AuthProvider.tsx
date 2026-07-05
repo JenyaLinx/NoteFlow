@@ -3,17 +3,7 @@
 import { useEffect, useState } from 'react';
 import { checkSession, getMe } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
-
-function NeonLoader() {
-  return (
-    <div className="neonLoaderScreen">
-      <div className="neonLoaderBox">
-        <div className="neonSpinner" />
-        <p className="neonLoaderText">Loading NoteHub</p>
-      </div>
-    </div>
-  );
-}
+import Loader from '@/components/Loader/Loader';
 
 export default function AuthProvider({
   children,
@@ -46,7 +36,7 @@ export default function AuthProvider({
     initAuth();
   }, [setUser, clear]);
 
-  if (loading) return <NeonLoader />;
+  if (loading) return <Loader />;
 
   return <>{children}</>;
 }
