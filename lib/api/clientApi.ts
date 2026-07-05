@@ -55,13 +55,23 @@ export const fetchNotes = async (
   search: string,
   tag: string
 ): Promise<FetchNotesResponse> => {
+  const params: {
+    page: number;
+    search: string;
+    perPage: number;
+    tag?: string;
+  } = {
+    page,
+    search,
+    perPage: 12,
+  };
+
+  if (tag !== 'all') {
+    params.tag = tag;
+  }
+
   const res = await api.get<FetchNotesResponse>('/notes', {
-    params: {
-      page,
-      search,
-      tag,
-      perPage: 12,
-    },
+    params,
   });
 
   return res.data;

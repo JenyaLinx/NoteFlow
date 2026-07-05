@@ -4,12 +4,16 @@ import { parse } from 'cookie';
 import { checkSession } from '@/lib/api/serverApi';
 
 export async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  if (pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
   const cookieStore = await cookies();
 
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
-
-  const pathname = request.nextUrl.pathname;
 
   const isAuthRoute =
     pathname.startsWith('/sign-in') || pathname.startsWith('/sign-up');
@@ -27,7 +31,9 @@ export async function proxy(request: NextRequest) {
           const response = NextResponse.redirect(new URL('/', request.url));
 
           if (setCookie) {
-            const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+            const cookieArray = Array.isArray(setCookie)
+              ? setCookie
+              : [setCookie];
 
             for (const cookieStr of cookieArray) {
               const parsed = parse(cookieStr);
@@ -38,11 +44,19 @@ export async function proxy(request: NextRequest) {
               };
 
               if (parsed.accessToken) {
-                response.cookies.set('accessToken', parsed.accessToken, options);
+                response.cookies.set(
+                  'accessToken',
+                  parsed.accessToken,
+                  options
+                );
               }
 
               if (parsed.refreshToken) {
-                response.cookies.set('refreshToken', parsed.refreshToken, options);
+                response.cookies.set(
+                  'refreshToken',
+                  parsed.refreshToken,
+                  options
+                );
               }
             }
           }
@@ -53,7 +67,9 @@ export async function proxy(request: NextRequest) {
         const response = NextResponse.next();
 
         if (setCookie) {
-          const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+          const cookieArray = Array.isArray(setCookie)
+            ? setCookie
+            : [setCookie];
 
           for (const cookieStr of cookieArray) {
             const parsed = parse(cookieStr);
