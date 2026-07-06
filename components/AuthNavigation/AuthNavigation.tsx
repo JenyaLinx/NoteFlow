@@ -16,6 +16,8 @@ export default function AuthNavigation({ onNavigate }: AuthNavigationProps) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const displayName = user?.username || user?.email || 'Account';
+
   const handleLogout = async () => {
     await logout();
     clear();
@@ -43,8 +45,8 @@ export default function AuthNavigation({ onNavigate }: AuthNavigationProps) {
 
         <li className={css.navigationItem}>
           <div className={css.userContainer}>
-            <p className={css.userEmail} title={user?.email}>
-              {user?.email}
+            <p className={css.userEmail} title={displayName}>
+              {displayName}
             </p>
 
             <button onClick={handleLogout} className={css.logoutButton}>

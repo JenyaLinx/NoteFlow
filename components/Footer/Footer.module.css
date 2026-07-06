@@ -1,25 +1,124 @@
-
 .footer {
-  padding: 20px;
-  background-color: #f0f0f0;
-  text-align: center;
-  font-size: 14px;
-  color: #555;
-  border-top: 1px solid #ddd;
+  margin-top: auto;
+  background: #05050b;
+  border-top: 1px solid rgba(157, 78, 221, 0.35);
+  box-shadow: 0 -8px 30px rgba(157, 78, 221, 0.15);
 }
 
-.wrap {
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 42px 24px;
+}
+
+.topLine {
+  width: 120px;
+  height: 3px;
+  margin: 0 auto 30px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--neon-purple),
+    var(--neon-blue),
+    var(--neon-red)
+  );
+
+  box-shadow:
+    0 0 16px rgba(157, 78, 221, 0.8),
+    0 0 20px rgba(76, 201, 240, 0.6);
+}
+
+.copyright {
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: .95rem;
+}
+
+.copyright span {
+  color: var(--neon-purple);
+  text-shadow: 0 0 12px rgba(157, 78, 221, .9);
+}
+
+.info {
+  margin-top: 34px;
+
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 80px;
 }
 
-.footer a {
-  color: #226ec5;
-  font-weight: 600;
+.block {
+  text-align: center;
+}
+
+.label {
+  margin-bottom: 10px;
+  color: #8d95b5;
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.highlight {
+  margin: 0;
+  color: var(--neon-red);
+  font-weight: 700;
+  font-size: 1rem;
+
+  text-shadow:
+    0 0 14px rgba(255,56,100,.65),
+    0 0 26px rgba(255,56,100,.45);
+}
+
+.email {
+  color: var(--neon-red);
   text-decoration: none;
+  font-weight: 700;
+
+  text-shadow:
+    0 0 14px rgba(255,56,100,.65),
+    0 0 26px rgba(255,56,100,.45);
+
+  transition: .25s;
 }
 
-.footer a:hover {
-  text-decoration: underline;
+.email:hover {
+  color: white;
+
+  text-shadow:
+    0 0 12px white,
+    0 0 24px rgba(157,78,221,.8);
+}
+
+@media (max-width:768px){
+
+  .container{
+    padding:36px 20px;
+  }
+
+  .info{
+    gap:28px;
+    flex-direction:column;
+  }
+
+}
+
+@media (max-width:480px){
+
+  .container{
+    padding:30px 16px;
+  }
+
+  .copyright{
+    font-size:.88rem;
+    line-height:1.6;
+  }
+
+  .highlight,
+  .email{
+    font-size:.92rem;
+    word-break:break-word;
+  }
+
 }
