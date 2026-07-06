@@ -4,7 +4,19 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import css from './SidebarNotes.module.css';
 
-const tags = ['All', 'Work', 'Personal', 'Meeting', 'Shopping'];
+const tags = [
+  'All',
+  'Todo',
+  'Work',
+  'Personal',
+  'Meeting',
+  'Shopping',
+  'Ideas',
+  'Travel',
+  'Finance',
+  'Health',
+  'Important',
+];
 
 export default function SidebarNotes() {
   const pathname = usePathname();

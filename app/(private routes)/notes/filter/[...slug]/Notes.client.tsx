@@ -6,6 +6,7 @@ import { fetchNotes } from '@/lib/api/clientApi';
 import NoteList from '@/components/NoteList/NoteList';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
+import Loader from '@/components/Loader/Loader';
 import Link from 'next/link';
 import css from './NotesPage.module.css';
 
@@ -41,12 +42,19 @@ export default function NotesClient({ tag }: Props) {
         </Link>
       </div>
 
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error loading notes</p>}
+      {isLoading && <Loader text="Loading notes" fullScreen={false} />}
 
-      {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
+      {isError && <p className={css.message}>Error loading notes</p>}
 
-      {data?.totalPages && data.totalPages > 1 && (
+      {!isLoading && !isError && data?.notes.length === 0 && (
+        <p className={css.message}>No notes found</p>
+      )}
+
+      {!isLoading && data?.notes && data.notes.length > 0 && (
+        <NoteList notes={data.notes} />
+      )}
+
+      {!isLoading && data?.totalPages && data.totalPages > 1 && (
         <Pagination
           page={page}
           totalPages={data.totalPages}
