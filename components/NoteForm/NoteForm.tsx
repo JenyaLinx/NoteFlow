@@ -1,10 +1,23 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useNoteStore } from "@/lib/store/noteStore";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNote } from "@/lib/api/clientApi";
-import css from "./NoteForm.module.css";
+import { useRouter } from 'next/navigation';
+import { useNoteStore } from '@/lib/store/noteStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createNote } from '@/lib/api/clientApi';
+import css from './NoteForm.module.css';
+
+const tags = [
+  'Todo',
+  'Work',
+  'Personal',
+  'Meeting',
+  'Shopping',
+  'Ideas',
+  'Travel',
+  'Finance',
+  'Health',
+  'Important',
+];
 
 export default function NoteForm() {
   const router = useRouter();
@@ -14,14 +27,16 @@ export default function NoteForm() {
   const mutation = useMutation({
     mutationFn: createNote,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
       clearDraft();
       router.back();
     },
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setDraft({
       ...draft,
@@ -31,40 +46,76 @@ export default function NoteForm() {
 
   const handleSubmit = (formData: FormData) => {
     mutation.mutate({
-      title: formData.get("title") as string,
-      content: formData.get("content") as string,
-      tag: formData.get("tag") as string,
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      tag: formData.get('tag') as string,
     });
   };
 
   return (
     <form action={handleSubmit} className={css.form}>
-      <input
-        name="title"
-        value={draft.title}
-        onChange={handleChange}
-        className={css.input}
-      />
+      <div className={css.formGroup}>
+        <label htmlFor="title">Title</label>
+        <input
+          id="title"
+          name="title"
+          value={draft.title}
+          onChange={handleChange}
+          className={css.input}
+          placeholder="Enter note title..."
+          required
+        />
+      </div>
 
-      <textarea
-        name="content"
-        value={draft.content}
-        onChange={handleChange}
-        className={css.textarea}
-      />
+      <div className={css.formGroup}>
+        <label htmlFor="content">Content</label>
+        <textarea
+          id="content"
+          name="content"
+          value={draft.content}
+          onChange={handleChange}
+          className={css.textarea}
+          placeholder="Write your note..."
+          required
+        />
+      </div>
 
-      <select name="tag" value={draft.tag} onChange={handleChange}>
-        <option value="Todo">Todo</option>
-        <option value="Work">Work</option>
-        <option value="Personal">Personal</option>
-        <option value="Meeting">Meeting</option>
-        <option value="Shopping">Shopping</option>
-      </select>
+      <div className={css.formGroup}>
+        <label htmlFor="tag">Category</label>
+        <select
+          id="tag"
+          name="tag"
+          value={draft.tag}
+          onChange={handleChange}
+          className={css.select}
+        >
+          {tags.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {mutation.isError && (
+        <p className={css.error}>Something went wrong. Please try again.</p>
+      )}
 
       <div className={css.actions}>
-        <button type="submit">Create</button>
-        <button type="button" onClick={() => router.back()}>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className={css.cancelButton}
+        >
           Cancel
+        </button>
+
+        <button
+          type="submit"
+          className={css.submitButton}
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? 'Creating...' : 'Create note'}
         </button>
       </div>
     </form>
