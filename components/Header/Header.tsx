@@ -25,9 +25,7 @@ export default function Header() {
     };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsInfoOpen(false);
-      }
+      if (event.key === 'Escape') setIsInfoOpen(false);
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -59,10 +57,7 @@ export default function Header() {
               </p>
 
               <div className={css.infoLinks}>
-                <a href="mailto:sportpit2020@gmail.com">
-                  Mail
-                </a>
-
+                <a href="mailto:sportpit2020@gmail.com">Mail</a>
                 <a
                   href="https://www.linkedin.com/in/yevhenii-oliinykk/"
                   target="_blank"
@@ -70,7 +65,6 @@ export default function Header() {
                 >
                   LinkedIn
                 </a>
-
                 <a
                   href="https://www.instagram.com/y.0liinyk?igsh=ZDY1ZGh0Z2o2Zjgy&utm_source=qr"
                   target="_blank"
@@ -90,17 +84,14 @@ export default function Header() {
           )}
         </div>
 
-        <ul className={css.navigationList}>
-          <li className={css.navigationItem}>
-            <Link
-              href="/"
-              className={`${css.link} ${isHomeActive ? css.active : ''}`}
-            >
+        <ul className={css.centerNav}>
+          <li>
+            <Link href="/" className={`${css.link} ${isHomeActive ? css.active : ''}`}>
               Home
             </Link>
           </li>
 
-          <li className={css.navigationItem}>
+          <li>
             <Link
               href="/notes/filter/all"
               className={`${css.link} ${isNotesActive ? css.active : ''}`}
@@ -109,8 +100,19 @@ export default function Header() {
             </Link>
           </li>
 
-          <AuthNavigation />
+          <li>
+            <Link
+              href="/profile"
+              className={`${css.link} ${pathname.startsWith('/profile') ? css.active : ''}`}
+            >
+              Profile
+            </Link>
+          </li>
         </ul>
+
+        <div className={css.accountArea}>
+          <AuthNavigation />
+        </div>
       </nav>
     </header>
   );

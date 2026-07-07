@@ -6,11 +6,7 @@ import css from './AuthNavigation.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
 import { logout } from '@/lib/api/clientApi';
 
-type AuthNavigationProps = {
-  onNavigate?: () => void;
-};
-
-export default function AuthNavigation({ onNavigate }: AuthNavigationProps) {
+export default function AuthNavigation() {
   const { isAuthenticated, user } = useAuthStore();
   const clear = useAuthStore((s) => s.clearIsAuthenticated);
   const router = useRouter();
@@ -21,73 +17,44 @@ export default function AuthNavigation({ onNavigate }: AuthNavigationProps) {
   const handleLogout = async () => {
     await logout();
     clear();
-    onNavigate?.();
     router.push('/sign-in');
   };
 
   if (isAuthenticated) {
-    const isProfileActive = pathname.startsWith('/profile');
-
     return (
-      <>
-        <li className={css.navigationItem}>
-          <Link
-            href="/profile"
-            prefetch={false}
-            className={`${css.navigationLink} ${
-              isProfileActive ? css.active : ''
-            }`}
-            onClick={onNavigate}
-          >
-            Profile
-          </Link>
-        </li>
+      <div className={css.userContainer}>
+        <p className={css.userEmail} title={displayName}>
+          {displayName}
+        </p>
 
-        <li className={css.navigationItem}>
-          <div className={css.userContainer}>
-            <p className={css.userEmail} title={displayName}>
-              {displayName}
-            </p>
-
-            <button onClick={handleLogout} className={css.logoutButton}>
-              Logout
-            </button>
-          </div>
-        </li>
-      </>
+        <button onClick={handleLogout} className={css.logoutButton}>
+          Logout
+        </button>
+      </div>
     );
   }
 
-  const isSignInActive = pathname.startsWith('/sign-in');
-  const isSignUpActive = pathname.startsWith('/sign-up');
-
   return (
-    <>
-      <li className={css.navigationItem}>
-        <Link
-          href="/sign-in"
-          prefetch={false}
-          className={`${css.navigationLink} ${
-            isSignInActive ? css.active : ''
-          }`}
-          onClick={onNavigate}
-        >
-          Login
-        </Link>
-      </li>
+    <div className={css.authLinks}>
+      <Link
+        href="/sign-in"
+        prefetch={false}
+        className={`${css.navigationLink} ${
+          pathname.startsWith('/sign-in') ? css.active : ''
+        }`}
+      >
+        Login
+      </Link>
 
-      <li className={css.navigationItem}>
-        <Link
-          href="/sign-up"
-          prefetch={false}
-          className={`${css.navigationLink} ${
-            isSignUpActive ? css.active : ''
-          }`}
-          onClick={onNavigate}
-        >
-          Sign up
-        </Link>
-      </li>
-    </>
+      <Link
+        href="/sign-up"
+        prefetch={false}
+        className={`${css.navigationLink} ${
+          pathname.startsWith('/sign-up') ? css.active : ''
+        }`}
+      >
+        Sign up
+      </Link>
+    </div>
   );
 }

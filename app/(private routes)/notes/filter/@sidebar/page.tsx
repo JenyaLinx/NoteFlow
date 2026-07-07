@@ -11,11 +11,6 @@ const tags = [
   { label: 'Personal', value: 'Personal', icon: '❤️' },
   { label: 'Meeting', value: 'Meeting', icon: '📅' },
   { label: 'Shopping', value: 'Shopping', icon: '🛒' },
-  { label: 'Ideas', value: 'Ideas', icon: '💡' },
-  { label: 'Travel', value: 'Travel', icon: '✈️' },
-  { label: 'Finance', value: 'Finance', icon: '💷' },
-  { label: 'Health', value: 'Health', icon: '🩺' },
-  { label: 'Important', value: 'Important', icon: '⭐' },
 ];
 
 export default function SidebarNotes() {
@@ -23,8 +18,6 @@ export default function SidebarNotes() {
 
   return (
     <nav className={css.sidebarNav} aria-label="Notes filters">
-      <p className={css.sidebarTitle}>Categories</p>
-
       <ul className={css.menuList}>
         {tags.map((tag) => {
           const href =
