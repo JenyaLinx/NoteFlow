@@ -1,35 +1,66 @@
-import type { Metadata } from 'next';
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import css from './page.module.css';
-import { getMe } from '@/lib/api/serverApi';
+import { getMe } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 
-export const metadata: Metadata = {
-  title: 'Note Flow | Profile',
-  description: 'User profile dashboard',
-};
+export default function ProfilePage() {
+  const user = useAuthStore((s) => s.user);
+  const setUser = useAuthStore((s) => s.setUser);
 
-export default async function ProfilePage() {
-  const user = await getMe();
+  const [loading, setLoading] = useState(!user);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const currentUser = await getMe();
+        setUser(currentUser);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (!user) {
+      loadUser();
+    } else {
+      setLoading(false);
+    }
+  }, [user, setUser]);
+
+  if (loading) {
+    return (
+      <main className={css.mainContent}>
+        <p className={css.subtitle}>Loading profile...</p>
+      </main>
+    );
+  }
+
+  const displayName = user?.username || user?.email || 'User';
+  const avatarLetter = displayName.charAt(0).toUpperCase();
 
   return (
     <main className={css.mainContent}>
       <section className={css.dashboard}>
         <div className={css.heroCard}>
           <div className={css.profileTop}>
-            <Image
-              src={user?.avatar || 'https://via.placeholder.com/120'}
-              alt="User Avatar"
-              width={120}
-              height={120}
-              className={css.avatar}
-            />
+            {user?.avatar ? (
+              <Image
+                src={user.avatar}
+                alt="User Avatar"
+                width={120}
+                height={120}
+                className={css.avatar}
+              />
+            ) : (
+              <div className={css.avatarFallback}>{avatarLetter}</div>
+            )}
 
             <div>
               <p className={css.badge}>Account dashboard</p>
-              <h1 className={css.title}>
-                {user?.username || 'Your profile'}
-              </h1>
+              <h1 className={css.title}>{user?.username || 'Your profile'}</h1>
               <p className={css.subtitle}>{user?.email}</p>
             </div>
           </div>

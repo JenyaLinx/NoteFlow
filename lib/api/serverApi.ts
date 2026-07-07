@@ -1,16 +1,20 @@
 import { cookies } from 'next/headers';
-import { AxiosResponse } from 'axios';
-import { api } from './api';
+import axios, { AxiosResponse } from 'axios';
 import { User } from '@/types/user';
 import { Note } from '@/types/note';
 import { FetchNotesResponse } from './clientApi';
+
+const serverApi = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+  withCredentials: true,
+});
 
 export const checkSession = async (): Promise<
   AxiosResponse<{ success: boolean }>
 > => {
   const cookieStore = await cookies();
 
-  return api.get<{ success: boolean }>('/auth/session', {
+  return serverApi.get<{ success: boolean }>('/auth/session', {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -21,7 +25,7 @@ export const getMe = async (): Promise<User | null> => {
   const cookieStore = await cookies();
 
   try {
-    const res = await api.get<User>('/users/me', {
+    const res = await serverApi.get<User>('/users/me', {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -40,13 +44,23 @@ export const fetchNotes = async (
 ): Promise<FetchNotesResponse> => {
   const cookieStore = await cookies();
 
-  const res = await api.get<FetchNotesResponse>('/notes', {
-    params: {
-      page,
-      search,
-      tag,
-      perPage: 12,
-    },
+  const params: {
+    page: number;
+    search: string;
+    perPage: number;
+    tag?: string;
+  } = {
+    page,
+    search,
+    perPage: 12,
+  };
+
+  if (tag !== 'all') {
+    params.tag = tag;
+  }
+
+  const res = await serverApi.get<FetchNotesResponse>('/notes', {
+    params,
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -58,7 +72,7 @@ export const fetchNotes = async (
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const cookieStore = await cookies();
 
-  const res = await api.get<Note>(`/notes/${id}`, {
+  const res = await serverApi.get<Note>(`/notes/${id}`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
