@@ -18,7 +18,19 @@ export default function SearchBox({ value, onChange }: SearchBoxProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search notes..."
+        aria-label="Search notes"
       />
+
+      {value && (
+        <button
+          type="button"
+          className={css.clearButton}
+          onClick={() => onChange('')}
+          aria-label="Clear search"
+        >
+          ×
+        </button>
+      )}
     </div>
   );
 }
