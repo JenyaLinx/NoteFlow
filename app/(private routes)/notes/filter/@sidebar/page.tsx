@@ -34,7 +34,7 @@ export default function SidebarNotes() {
                 className={`${css.menuLink} ${isActive ? css.active : ''}`}
               >
                 <span className={css.icon}>{tag.icon}</span>
-                <span>{tag.label}</span>
+                <span className={css.label}>{tag.label}</span>
               </Link>
             </li>
           );

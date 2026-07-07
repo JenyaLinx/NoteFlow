@@ -6,10 +6,9 @@
   list-style: none;
   margin: 0;
   padding: 0;
-
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 18px;
+  gap: 10px 12px;
 }
 
 .menuItem {
@@ -19,23 +18,21 @@
 .menuLink {
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  min-height: 42px;
-  padding: 8px 10px;
-
-  border-radius: 14px;
+  gap: 8px;
+  min-height: 38px;
+  padding: 7px 9px;
+  border-radius: 12px;
   border: 1px solid transparent;
-
   background: transparent;
-
   color: white;
   text-decoration: none;
-
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   font-weight: 700;
-
-  transition: 0.25s;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .menuLink:hover {
@@ -45,21 +42,23 @@
 }
 
 .icon {
-  width: 28px;
-  height: 28px;
-
-  display: flex;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
-
   border-radius: 50%;
-
   background: rgba(76, 201, 240, 0.08);
-  box-shadow: 0 0 10px rgba(76, 201, 240, 0.2);
+  box-shadow: 0 0 10px rgba(76, 201, 240, 0.18);
+  font-size: 0.78rem;
+}
 
-  font-size: 1rem;
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .active {
@@ -68,9 +67,7 @@
     rgba(255, 56, 100, 0.14),
     rgba(157, 78, 221, 0.16)
   );
-
   border-color: rgba(255, 56, 100, 0.45);
-
   box-shadow:
     0 0 14px rgba(255, 56, 100, 0.22),
     0 0 18px rgba(157, 78, 221, 0.16);
@@ -78,18 +75,18 @@
 
 @media (max-width: 768px) {
   .menuList {
-    gap: 10px 14px;
+    gap: 8px;
   }
 
   .menuLink {
-    min-height: 40px;
-    padding: 7px 8px;
-    font-size: 0.84rem;
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 0.78rem;
   }
 
   .icon {
-    width: 24px;
-    height: 24px;
-    font-size: 0.85rem;
+    width: 22px;
+    height: 22px;
+    font-size: 0.72rem;
   }
 }
