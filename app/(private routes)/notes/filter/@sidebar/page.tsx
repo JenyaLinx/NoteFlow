@@ -5,17 +5,17 @@ import { usePathname } from 'next/navigation';
 import css from './SidebarNotes.module.css';
 
 const tags = [
-  { label: 'All notes', value: 'All', icon: '✦' },
-  { label: 'Todo', value: 'Todo', icon: '✓' },
+  { label: 'All notes', value: 'All', icon: '✨' },
+  { label: 'Todo', value: 'Todo', icon: '✅' },
   { label: 'Work', value: 'Work', icon: '💼' },
-  { label: 'Personal', value: 'Personal', icon: '♡' },
+  { label: 'Personal', value: 'Personal', icon: '❤️' },
   { label: 'Meeting', value: 'Meeting', icon: '📅' },
   { label: 'Shopping', value: 'Shopping', icon: '🛒' },
   { label: 'Ideas', value: 'Ideas', icon: '💡' },
-  { label: 'Travel', value: 'Travel', icon: '✈' },
-  { label: 'Finance', value: 'Finance', icon: '£' },
-  { label: 'Health', value: 'Health', icon: '＋' },
-  { label: 'Important', value: 'Important', icon: '!' },
+  { label: 'Travel', value: 'Travel', icon: '✈️' },
+  { label: 'Finance', value: 'Finance', icon: '💷' },
+  { label: 'Health', value: 'Health', icon: '🩺' },
+  { label: 'Important', value: 'Important', icon: '⭐' },
 ];
 
 export default function SidebarNotes() {
