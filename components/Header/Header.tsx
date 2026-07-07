@@ -2,15 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 import css from './Header.module.css';
 import AuthNavigation from '../AuthNavigation/AuthNavigation';
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const closeMenu = () => setIsMenuOpen(false);
 
   const isHomeActive = pathname === '/';
   const isNotesActive = pathname.startsWith('/notes');
@@ -18,27 +14,15 @@ export default function Header() {
   return (
     <header className={css.header}>
       <nav className={css.nav}>
-        <Link href="/" className={css.logo} onClick={closeMenu}>
+        <Link href="/" className={css.logo}>
           Note Flow
         </Link>
 
-        <button
-          type="button"
-          className={`${css.burger} ${isMenuOpen ? css.burgerActive : ''}`}
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          aria-label="Toggle navigation menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-
-        <ul className={`${css.navigationList} ${isMenuOpen ? css.menuOpen : ''}`}>
+        <ul className={css.navigationList}>
           <li className={css.navigationItem}>
             <Link
               href="/"
               className={`${css.link} ${isHomeActive ? css.active : ''}`}
-              onClick={closeMenu}
             >
               Home
             </Link>
@@ -48,13 +32,12 @@ export default function Header() {
             <Link
               href="/notes/filter/all"
               className={`${css.link} ${isNotesActive ? css.active : ''}`}
-              onClick={closeMenu}
             >
               Notes
             </Link>
           </li>
 
-          <AuthNavigation onNavigate={closeMenu} />
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

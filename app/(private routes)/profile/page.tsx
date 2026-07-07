@@ -5,7 +5,7 @@ import css from './page.module.css';
 import { getMe } from '@/lib/api/serverApi';
 
 export const metadata: Metadata = {
-  title: 'Profile',
+  title: 'Note Flow | Profile',
   description: 'User profile page',
 };
 
@@ -14,9 +14,13 @@ export default async function ProfilePage() {
 
   return (
     <main className={css.mainContent}>
-      <div className={css.profileCard}>
+      <section className={css.profileCard}>
         <div className={css.header}>
-          <h1 className={css.formTitle}>Profile Page</h1>
+          <div>
+            <p className={css.badge}>Account</p>
+            <h1 className={css.formTitle}>Profile</h1>
+          </div>
+
           <Link href="/profile/edit" className={css.editProfileButton}>
             Edit Profile
           </Link>
@@ -33,10 +37,27 @@ export default async function ProfilePage() {
         </div>
 
         <div className={css.profileInfo}>
-          <p>Username: {user?.username}</p>
-          <p>Email: {user?.email}</p>
+          <div className={css.infoItem}>
+            <span>Username</span>
+            <p>{user?.username || 'No username yet'}</p>
+          </div>
+
+          <div className={css.infoItem}>
+            <span>Email</span>
+            <p>{user?.email}</p>
+          </div>
         </div>
-      </div>
+
+        <div className={css.actions}>
+          <Link href="/notes/filter/all" className={css.myNotesButton}>
+            My notes
+          </Link>
+
+          <Link href="/notes/action/create" className={css.createButton}>
+            Create note +
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
