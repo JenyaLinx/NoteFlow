@@ -36,7 +36,7 @@ export const logout = async (): Promise<void> => {
 
 export const checkSession = async (): Promise<boolean> => {
   try {
-    const res = await api.post<{ token: string }>('/auth/refresh');
+    const res = await api.get('/users/current');
     return !!res.data;
   } catch {
     return false;
