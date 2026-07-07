@@ -14,12 +14,12 @@
 .nav {
   width: 100%;
   max-width: var(--container);
-  min-height: 74px;
+  min-height: 72px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
 }
 
 .logoWrapper {
@@ -31,7 +31,7 @@
   border: none;
   background: transparent;
   color: white;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: 0.03em;
   white-space: nowrap;
@@ -94,7 +94,7 @@
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -113,11 +113,11 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 42px;
+  min-height: 40px;
   padding: 8px 4px;
   color: white;
   text-decoration: none;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   font-weight: 700;
   white-space: nowrap;
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
@@ -166,37 +166,42 @@
 
 @media (max-width: 900px) {
   .nav {
-    min-height: 82px;
-    padding: 12px 18px;
-    gap: 18px;
+    min-height: 76px;
+    padding: 12px 14px;
+    gap: 14px;
   }
 
   .logo {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
 
   .navigationList {
-    gap: 16px;
+    gap: 12px;
+  }
+
+  .link {
+    font-size: 0.82rem;
   }
 }
 
 @media (max-width: 560px) {
   .nav {
-    min-height: 86px;
-    padding: 14px 16px;
-    gap: 16px;
+    min-height: 76px;
+    padding: 12px 10px;
+    gap: 10px;
   }
 
   .logo {
-    font-size: 1.15rem;
+    font-size: 0.95rem;
   }
 
   .navigationList {
-    gap: 14px;
+    gap: 10px;
   }
 
   .link {
-    font-size: 0.95rem;
+    min-height: 36px;
+    font-size: 0.78rem;
   }
 
   .infoCard {
