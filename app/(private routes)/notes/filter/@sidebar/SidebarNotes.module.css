@@ -15,8 +15,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 10px;
 }
 
@@ -27,8 +26,8 @@
 .menuLink {
   display: flex;
   align-items: center;
-  gap: 11px;
-  min-height: 46px;
+  gap: 10px;
+  min-height: 44px;
   padding: 10px 14px;
   border: 1px solid rgba(157, 78, 221, 0.18);
   border-radius: 999px;
@@ -39,7 +38,6 @@
   font-weight: 700;
   white-space: nowrap;
   transition:
-    color 0.25s ease,
     border-color 0.25s ease,
     background-color 0.25s ease,
     box-shadow 0.25s ease,
@@ -47,8 +45,8 @@
 }
 
 .icon {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -57,68 +55,62 @@
   color: var(--neon-blue);
   background: rgba(76, 201, 240, 0.08);
   box-shadow: 0 0 12px rgba(76, 201, 240, 0.16);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .menuLink:hover {
-  color: white;
   border-color: rgba(157, 78, 221, 0.5);
   background: rgba(157, 78, 221, 0.14);
-  box-shadow:
-    0 0 18px rgba(157, 78, 221, 0.28),
-    inset 0 0 18px rgba(157, 78, 221, 0.08);
+  box-shadow: 0 0 18px rgba(157, 78, 221, 0.28);
   transform: translateX(4px);
 }
 
 .active {
-  color: white;
   border-color: rgba(255, 56, 100, 0.72);
   background:
     linear-gradient(135deg, rgba(255, 56, 100, 0.18), rgba(157, 78, 221, 0.18));
   box-shadow:
     0 0 18px rgba(255, 56, 100, 0.35),
-    0 0 28px rgba(157, 78, 221, 0.22),
-    inset 0 0 18px rgba(255, 56, 100, 0.08);
+    0 0 28px rgba(157, 78, 221, 0.22);
 }
 
 .active .icon {
   color: white;
   background: rgba(255, 56, 100, 0.18);
-  box-shadow:
-    0 0 14px rgba(255, 56, 100, 0.5),
-    0 0 22px rgba(157, 78, 221, 0.28);
+  box-shadow: 0 0 14px rgba(255, 56, 100, 0.5);
 }
 
 @media (max-width: 768px) {
   .sidebarTitle {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    text-align: center;
   }
 
   .menuList {
-    flex-direction: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    scrollbar-width: none;
-  }
-
-  .menuList::-webkit-scrollbar {
-    display: none;
   }
 
   .menuLink {
-    min-height: 42px;
-    padding: 8px 12px;
+    justify-content: flex-start;
+    min-height: 44px;
+    padding: 9px 12px;
     font-size: 0.88rem;
-  }
-
-  .icon {
-    width: 25px;
-    height: 25px;
-    font-size: 0.8rem;
   }
 
   .menuLink:hover {
     transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 420px) {
+  .menuLink {
+    font-size: 0.82rem;
+    padding: 8px 10px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
   }
 }
