@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useNoteStore } from '@/lib/store/noteStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -19,10 +20,25 @@ const tags = [
   'Important',
 ];
 
+const formatDateForInput = (date: Date) => {
+  return date.toISOString().split('T')[0];
+};
+
+const formatReadableDate = (dateValue: string) => {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(dateValue));
+};
+
 export default function NoteForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { draft, setDraft, clearDraft } = useNoteStore();
+
+  const today = useMemo(() => formatDateForInput(new Date()), []);
+  const [reminderDate, setReminderDate] = useState(today);
 
   const mutation = useMutation({
     mutationFn: createNote,
@@ -45,10 +61,17 @@ export default function NoteForm() {
   };
 
   const handleSubmit = (formData: FormData) => {
+    const title = formData.get('title') as string;
+    const content = formData.get('content') as string;
+    const tag = formData.get('tag') as string;
+
+    const dateLine = `Reminder date: ${formatReadableDate(reminderDate)}`;
+    const contentWithDate = `${dateLine}\n\n${content}`;
+
     mutation.mutate({
-      title: formData.get('title') as string,
-      content: formData.get('content') as string,
-      tag: formData.get('tag') as string,
+      title,
+      content: contentWithDate,
+      tag,
     });
   };
 
@@ -64,6 +87,19 @@ export default function NoteForm() {
           className={css.input}
           placeholder="Enter note title..."
           required
+        />
+      </div>
+
+      <div className={css.formGroup}>
+        <label htmlFor="reminderDate">Reminder date</label>
+        <input
+          id="reminderDate"
+          name="reminderDate"
+          type="date"
+          value={reminderDate}
+          min={today}
+          onChange={(e) => setReminderDate(e.target.value)}
+          className={css.input}
         />
       </div>
 
