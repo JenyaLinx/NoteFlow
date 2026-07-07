@@ -33,10 +33,13 @@ export default function NotesClient({ tag }: Props) {
     queryFn: () => fetchNotes(page, debouncedSearch, tag),
   });
 
+  const hasNoNotes = !isLoading && !isError && data?.notes.length === 0;
+
   return (
     <div className={css.wrapper}>
       <div className={css.toolbar}>
         <SearchBox value={search} onChange={setSearch} />
+
         <Link href="/notes/action/create" className={css.createBtn}>
           Create note +
         </Link>
@@ -44,10 +47,24 @@ export default function NotesClient({ tag }: Props) {
 
       {isLoading && <Loader text="Loading notes" fullScreen={false} />}
 
-      {isError && <p className={css.message}>Error loading notes</p>}
+      {isError && (
+        <div className={css.emptyState}>
+          <p className={css.emptyIcon}>⚠</p>
+          <h2>Error loading notes</h2>
+          <p>Please try again later.</p>
+        </div>
+      )}
 
-      {!isLoading && !isError && data?.notes.length === 0 && (
-        <p className={css.message}>No notes found</p>
+      {hasNoNotes && (
+        <div className={css.emptyState}>
+          <p className={css.emptyIcon}>✦</p>
+          <h2>No notes found</h2>
+          <p>Try another search or create your first note.</p>
+
+          <Link href="/notes/action/create" className={css.emptyButton}>
+            Create note +
+          </Link>
+        </div>
       )}
 
       {!isLoading && data?.notes && data.notes.length > 0 && (

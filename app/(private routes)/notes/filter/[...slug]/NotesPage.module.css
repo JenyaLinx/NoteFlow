@@ -1,60 +1,77 @@
-.app {
-  width: 100%;
-  flex: 1;
-}
-
-.toolbar {
+.emptyState {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 24px;
-  padding: 22px;
-  border: 1px solid var(--border);
+  justify-content: center;
+
+  padding: 80px 20px;
+  margin-top: 20px;
+
+  border: 1px dashed rgba(157, 78, 221, 0.35);
   border-radius: var(--radius-lg);
+
   background:
-    linear-gradient(180deg, rgba(18, 21, 48, 0.88), rgba(8, 10, 28, 0.88)),
-    radial-gradient(circle at top right, rgba(76, 201, 240, 0.16), transparent 38%);
-  box-shadow:
-    0 0 22px rgba(157, 78, 221, 0.2),
-    0 18px 50px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(16px);
+    linear-gradient(180deg, rgba(18, 21, 48, 0.72), rgba(8, 10, 28, 0.78));
+
+  text-align: center;
 }
 
-.button {
-  min-height: 44px;
-  padding: 11px 18px;
-  border-radius: var(--radius-sm);
+.emptyIcon {
+  margin: 0;
+
+  font-size: 4rem;
+
+  color: var(--neon-purple);
+
+  text-shadow:
+    0 0 16px rgba(157, 78, 221, .8),
+    0 0 34px rgba(76, 201, 240, .3);
+}
+
+.emptyState h2 {
+  margin: 18px 0 10px;
+
   color: white;
-  background: linear-gradient(135deg, var(--neon-purple), #6d28d9);
-  box-shadow: var(--shadow-purple);
+
+  font-size: 1.8rem;
+}
+
+.emptyState p {
+  max-width: 420px;
+
+  margin-bottom: 26px;
+
+  color: var(--muted);
+
+  line-height: 1.7;
+}
+
+.emptyButton {
+  padding: 12px 22px;
+
+  border-radius: var(--radius-sm);
+
   text-decoration: none;
-  cursor: pointer;
-  font-size: 0.95rem;
+
+  color: white;
+
   font-weight: 700;
-  white-space: nowrap;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.25s ease;
+
+  background: linear-gradient(
+    135deg,
+    var(--neon-purple),
+    #6d28d9
+  );
+
+  box-shadow: var(--shadow-purple);
+
+  transition: .25s;
 }
 
-.button:hover {
+.emptyButton:hover {
   transform: translateY(-2px);
+
   box-shadow:
-    0 0 24px rgba(157, 78, 221, 0.75),
-    0 0 42px rgba(76, 201, 240, 0.3);
-}
-
-@media (max-width: 768px) {
-  .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 18px;
-  }
-
-  .button {
-    width: 100%;
-    text-align: center;
-  }
+    0 0 24px rgba(157,78,221,.75),
+    0 0 40px rgba(76,201,240,.35);
 }
