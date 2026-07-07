@@ -12,22 +12,20 @@ type LoginRequest = {
   password: string;
 };
 
-type SessionResponse = {
-  success: boolean;
-};
-
 export interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
 }
 
+
 export const register = async (data: RegisterRequest): Promise<User> => {
-  const res = await api.post<User>('/auth/register', data);
+  const res = await api.post<User>('/auth/sign-up', data);
   return res.data;
 };
 
+
 export const login = async (data: LoginRequest): Promise<User> => {
-  const res = await api.post<User>('/auth/login', data);
+  const res = await api.post<User>('/auth/sign-in', data);
   return res.data;
 };
 
@@ -35,9 +33,14 @@ export const logout = async (): Promise<void> => {
   await api.post('/auth/logout');
 };
 
+
 export const checkSession = async (): Promise<boolean> => {
-  const res = await api.get<SessionResponse>('/auth/session');
-  return res.data.success;
+  try {
+    const res = await api.post<{ token: string }>('/auth/refresh');
+    return !!res.data;
+  } catch {
+    return false;
+  }
 };
 
 export const getMe = async (): Promise<User> => {
