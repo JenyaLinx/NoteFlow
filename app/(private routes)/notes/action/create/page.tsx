@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function CreateNotePage() {
   return (
     <main className={css.main}>
-      <section className={css.container}>
+      <section className={css.modal}>
         <div className={css.header}>
           <p className={css.badge}>New note</p>
           <h1 className={css.title}>Create note</h1>

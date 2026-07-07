@@ -1,34 +1,57 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  color: var(--foreground);
+  gap: 9px;
+  color: white;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .input,
 .textarea,
 .select {
   width: 100%;
-  padding: 13px 14px;
+  border: 1px solid rgba(157, 78, 221, 0.42);
+  background: rgba(3, 4, 12, 0.72);
+  color: white;
+  box-shadow: inset 0 0 18px rgba(157, 78, 221, 0.05);
+  padding: 14px 15px;
   font-size: 1rem;
 }
 
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(166, 168, 199, 0.72);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: rgba(76, 201, 240, 0.75);
+  box-shadow:
+    0 0 0 3px rgba(76, 201, 240, 0.12),
+    0 0 24px rgba(76, 201, 240, 0.22);
+}
+
 .textarea {
-  min-height: 180px;
+  min-height: 190px;
   resize: vertical;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .select {
   cursor: pointer;
+}
+
+.select option {
+  background: #050612;
+  color: white;
 }
 
 .actions {
@@ -40,12 +63,12 @@
 
 .submitButton,
 .cancelButton {
-  min-height: 44px;
-  padding: 11px 18px;
+  min-height: 46px;
+  padding: 12px 20px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 800;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -74,15 +97,16 @@
 }
 
 .cancelButton {
-  color: var(--foreground);
-  border: 1px solid rgba(157, 78, 221, 0.4);
-  background: rgba(12, 14, 34, 0.78);
+  color: white;
+  border: 1px solid rgba(255, 56, 100, 0.62);
+  background: rgba(255, 56, 100, 0.1);
+  box-shadow: 0 0 16px rgba(255, 56, 100, 0.18);
 }
 
 .cancelButton:hover {
   transform: translateY(-2px);
-  border-color: rgba(76, 201, 240, 0.7);
-  box-shadow: 0 0 18px rgba(76, 201, 240, 0.25);
+  background: rgba(255, 56, 100, 0.18);
+  box-shadow: 0 0 22px rgba(255, 56, 100, 0.42);
 }
 
 .error {

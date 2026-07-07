@@ -1,88 +1,86 @@
 .main {
   width: 100%;
-  max-width: var(--container);
   flex: 1;
-  margin: 0 auto;
-  padding: 48px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 56px 24px;
 }
 
-.container {
+.modal {
   width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 34px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  max-width: 760px;
+  padding: 38px;
+  border: 1px solid rgba(157, 78, 221, 0.5);
+  border-radius: 28px;
   background:
-    linear-gradient(180deg, rgba(18, 21, 48, 0.92), rgba(8, 10, 28, 0.92)),
-    radial-gradient(circle at top right, rgba(157, 78, 221, 0.18), transparent 42%);
+    radial-gradient(circle at top right, rgba(255, 56, 100, 0.14), transparent 38%),
+    radial-gradient(circle at top left, rgba(76, 201, 240, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(14, 16, 40, 0.96), rgba(3, 4, 12, 0.98));
   box-shadow:
-    0 0 28px rgba(157, 78, 221, 0.22),
-    0 22px 60px rgba(0, 0, 0, 0.42);
-  backdrop-filter: blur(18px);
+    0 0 32px rgba(157, 78, 221, 0.3),
+    0 0 42px rgba(76, 201, 240, 0.12),
+    0 28px 90px rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(22px);
 }
 
 .header {
-  margin-bottom: 28px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
 .badge {
   display: inline-flex;
   margin: 0 0 14px;
-  padding: 6px 14px;
-  border: 1px solid rgba(76, 201, 240, 0.45);
+  padding: 7px 16px;
+  border: 1px solid rgba(76, 201, 240, 0.5);
   border-radius: 999px;
   color: var(--neon-blue);
   background: rgba(76, 201, 240, 0.08);
+  box-shadow: 0 0 18px rgba(76, 201, 240, 0.2);
   font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .title {
   margin: 0;
-  color: var(--foreground);
-  font-size: 2rem;
-  font-weight: 700;
-  text-shadow: 0 0 18px rgba(157, 78, 221, 0.45);
+  color: white;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  text-shadow:
+    0 0 14px rgba(255, 255, 255, 0.38),
+    0 0 30px rgba(157, 78, 221, 0.55);
 }
 
 .subtitle {
   max-width: 520px;
-  margin: 12px auto 0;
+  margin: 14px auto 0;
   color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
 
 @media (max-width: 768px) {
   .main {
-    padding: 36px 20px;
+    padding: 40px 20px;
   }
 
-  .container {
-    padding: 28px;
-  }
-
-  .title {
-    font-size: 1.75rem;
+  .modal {
+    padding: 30px;
+    border-radius: var(--radius-lg);
   }
 }
 
 @media (max-width: 480px) {
   .main {
-    padding: 28px 16px;
+    padding: 28px 14px;
   }
 
-  .container {
-    padding: 24px 18px;
+  .modal {
+    padding: 24px 16px;
     border-radius: var(--radius-md);
-  }
-
-  .title {
-    font-size: 1.55rem;
   }
 
   .subtitle {
