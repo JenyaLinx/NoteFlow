@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import css from './SignUpPage.module.css';
-import { createNote, register } from '@/lib/api/clientApi';
+import { createNote, register, resetMyNoteIds } from '@/lib/api/clientApi';
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
@@ -55,6 +55,7 @@ export default function SignUpPage() {
 
         if (res) {
           setUser(res);
+          resetMyNoteIds();
 
           await Promise.allSettled(
             starterNotes.map((note) => createNote(note))

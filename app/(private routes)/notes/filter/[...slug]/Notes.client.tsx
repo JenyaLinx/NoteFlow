@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchNotes } from '@/lib/api/clientApi';
+import { fetchNotes, getMyNoteIds } from '@/lib/api/clientApi';
 import NoteList from '@/components/NoteList/NoteList';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
@@ -33,7 +33,12 @@ export default function NotesClient({ tag }: Props) {
     queryFn: () => fetchNotes(page, debouncedSearch, tag),
   });
 
-  const hasNoNotes = !isLoading && !isError && data?.notes.length === 0;
+  const myNoteIds = getMyNoteIds();
+
+  const filteredNotes =
+    data?.notes.filter((note) => myNoteIds.includes(note.id)) ?? [];
+
+  const hasNoNotes = !isLoading && !isError && filteredNotes.length === 0;
 
   return (
     <div className={css.wrapper}>
@@ -59,7 +64,7 @@ export default function NotesClient({ tag }: Props) {
         <div className={css.emptyState}>
           <p className={css.emptyIcon}>✦</p>
           <h2>No notes found</h2>
-          <p>Try another search or create your first note.</p>
+          <p>Create your first note and it will appear here.</p>
 
           <Link href="/notes/action/create" className={css.emptyButton}>
             Create note +
@@ -67,8 +72,8 @@ export default function NotesClient({ tag }: Props) {
         </div>
       )}
 
-      {!isLoading && data?.notes && data.notes.length > 0 && (
-        <NoteList notes={data.notes} />
+      {!isLoading && filteredNotes.length > 0 && (
+        <NoteList notes={filteredNotes} />
       )}
 
       {!isLoading && data?.totalPages && data.totalPages > 1 && (
