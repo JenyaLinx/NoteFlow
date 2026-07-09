@@ -34,13 +34,23 @@ export default function SignUpPage() {
   const handleSubmit = async (formData: FormData) => {
     setError('');
 
+    const data = Object.fromEntries(formData) as {
+      email: string;
+      password: string;
+    };
+
+    if (!data.email.includes('@')) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (data.password.length < 6) {
+      setError('Password must contain at least 6 characters.');
+      return;
+    }
+
     startTransition(async () => {
       try {
-        const data = Object.fromEntries(formData) as {
-          email: string;
-          password: string;
-        };
-
         const res = await register(data);
 
         if (res) {
@@ -50,7 +60,8 @@ export default function SignUpPage() {
             starterNotes.map((note) => createNote(note))
           );
 
-          router.push('/notes/filter/all');
+          router.push('/');
+          router.refresh();
         }
       } catch {
         setError('Network Error');
@@ -87,6 +98,7 @@ export default function SignUpPage() {
               id="password"
               name="password"
               type="password"
+              minLength={6}
               className={css.input}
               required
             />

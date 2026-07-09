@@ -16,18 +16,29 @@ export default function SignInPage() {
   const handleSubmit = async (formData: FormData) => {
     setError('');
 
+    const data = Object.fromEntries(formData) as {
+      email: string;
+      password: string;
+    };
+
+    if (!data.email.includes('@')) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (data.password.length < 6) {
+      setError('Password must contain at least 6 characters.');
+      return;
+    }
+
     startTransition(async () => {
       try {
-        const data = Object.fromEntries(formData) as {
-          email: string;
-          password: string;
-        };
-
         const res = await login(data);
 
         if (res) {
           setUser(res);
-          router.push('/profile');
+          router.push('/');
+          router.refresh();
         }
       } catch {
         setError('Network Error');
@@ -47,12 +58,25 @@ export default function SignInPage() {
         <form action={handleSubmit} className={css.form}>
           <div className={css.formGroup}>
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" className={css.input} required />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className={css.input}
+              required
+            />
           </div>
 
           <div className={css.formGroup}>
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" className={css.input} required />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              minLength={6}
+              className={css.input}
+              required
+            />
           </div>
 
           <button type="submit" className={css.submitButton} disabled={isPending}>
