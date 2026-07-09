@@ -99,7 +99,7 @@ export default function NoteForm() {
           value={reminderDate}
           min={today}
           onChange={(e) => setReminderDate(e.target.value)}
-          className={css.input}
+          className={`${css.input} ${css.dateInput}`}
         />
       </div>
 
