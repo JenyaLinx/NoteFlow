@@ -32,6 +32,16 @@ export default function NoteList({ notes }: NoteListProps) {
     },
   });
 
+  const handleDelete = (id: string) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this note?'
+    );
+
+    if (!confirmed) return;
+
+    mutation.mutate(id);
+  };
+
   return (
     <ul className={css.list}>
       {notes.map((note) => {
@@ -56,7 +66,7 @@ export default function NoteList({ notes }: NoteListProps) {
 
             <button
               className={css.button}
-              onClick={() => mutation.mutate(note.id)}
+              onClick={() => handleDelete(note.id)}
               disabled={mutation.isPending}
             >
               Delete
