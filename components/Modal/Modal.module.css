@@ -1,22 +1,68 @@
 .backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(33, 37, 41, 0.6);
+  inset: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  padding: 24px;
+  background: rgba(1, 2, 10, 0.82);
+  backdrop-filter: blur(10px);
+  animation: backdropAppear 0.2s ease;
 }
 
 .modal {
-  background-color: #ffffff;
-  padding: 24px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 100%;
   position: relative;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 620px;
+  max-height: calc(100vh - 48px);
+  padding: 28px;
+  border: 1px solid rgba(157, 78, 221, 0.55);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    rgba(14, 16, 40, 0.99),
+    rgba(3, 4, 12, 0.99)
+  );
+  box-shadow:
+    0 0 32px rgba(157, 78, 221, 0.32),
+    0 28px 80px rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  animation: modalAppear 0.22s ease;
+}
+
+@keyframes backdropAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .backdrop {
+    align-items: flex-start;
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .modal {
+    max-height: none;
+    margin-block: 16px;
+    padding: 22px 18px;
+  }
 }
