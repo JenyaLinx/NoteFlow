@@ -9,6 +9,7 @@ import { deleteNote } from '@/lib/api/clientApi';
 import { Note } from '@/types/note';
 import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
+import DeleteConfirmModal from '@/components/DeleteConfirmModal/DeleteConfirmModal';
 import css from './NoteList.module.css';
 
 interface NoteListProps {
@@ -36,25 +37,20 @@ export default function NoteList({
   const [editingNote, setEditingNote] =
     useState<Note | null>(null);
 
-  const mutation = useMutation({
+  const [noteToDelete, setNoteToDelete] =
+    useState<Note | null>(null);
+
+  const deleteMutation = useMutation({
     mutationFn: deleteNote,
 
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['notes'],
       });
+
+      setNoteToDelete(null);
     },
   });
-
-  const handleDelete = (id: string) => {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this note?'
-    );
-
-    if (!confirmed) return;
-
-    mutation.mutate(id);
-  };
 
   const handleEdit = (note: Note) => {
     setEditingNote(note);
@@ -64,12 +60,32 @@ export default function NoteList({
     setEditingNote(null);
   };
 
+  const handleOpenDeleteModal = (note: Note) => {
+    setNoteToDelete(note);
+  };
+
+  const handleCloseDeleteModal = () => {
+    if (deleteMutation.isPending) return;
+
+    setNoteToDelete(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!noteToDelete) return;
+
+    deleteMutation.mutate(noteToDelete.id);
+  };
+
   return (
     <>
       <ul className={css.list}>
         {notes.map((note) => {
           const tagColor =
             tagColors[note.tag] || '#ffffff';
+
+          const isDeletingCurrentNote =
+            deleteMutation.isPending &&
+            noteToDelete?.id === note.id;
 
           return (
             <li
@@ -100,7 +116,7 @@ export default function NoteList({
                   type="button"
                   className={css.editButton}
                   onClick={() => handleEdit(note)}
-                  disabled={mutation.isPending}
+                  disabled={isDeletingCurrentNote}
                 >
                   Edit
                 </button>
@@ -109,11 +125,11 @@ export default function NoteList({
                   type="button"
                   className={css.deleteButton}
                   onClick={() =>
-                    handleDelete(note.id)
+                    handleOpenDeleteModal(note)
                   }
-                  disabled={mutation.isPending}
+                  disabled={isDeletingCurrentNote}
                 >
-                  {mutation.isPending
+                  {isDeletingCurrentNote
                     ? 'Deleting...'
                     : 'Delete'}
                 </button>
@@ -141,6 +157,15 @@ export default function NoteList({
             />
           </div>
         </Modal>
+      )}
+
+      {noteToDelete && (
+        <DeleteConfirmModal
+          noteTitle={noteToDelete.title}
+          isDeleting={deleteMutation.isPending}
+          onCancel={handleCloseDeleteModal}
+          onConfirm={handleConfirmDelete}
+        />
       )}
     </>
   );
